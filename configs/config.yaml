@@ -1,0 +1,64 @@
+# Configuration file for XAI project on MRI Brain Tumor Classification
+
+# Dataset configuration
+dataset:
+  path: "data/raw/MRI"
+  image_size: 224
+  num_classes: 4
+  classes: ["glioma", "meningioma", "notumor", "pituitary"]
+  train_folder: "Training"
+  test_folder: "Testing"
+
+# Model configuration
+model:
+  architecture: "resnet50"
+  pretrained: true
+  num_classes: 4
+  dropout_rate: 0.5
+
+# Training configuration
+training:
+  batch_size: 32
+  num_epochs: 10
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  num_workers: 4
+  optimizer: "adam"
+  scheduler: "cosine"
+  warmup_epochs: 2
+  val_split: 0.1
+  random_seed: 42
+
+# Validation configuration
+validation:
+  batch_size: 64
+  num_workers: 4
+
+# SHAP configuration
+shap:
+  background_size: 20
+  num_samples: 30
+  save_dir: "experiments/results/shap"
+  device: "auto"  # 'auto', 'cuda', 'cpu'
+
+# Evaluation configuration
+evaluation:
+  metrics:
+    - "auroc"
+    - "auprc"
+    - "f1_score"
+    - "accuracy"
+
+# Paths
+paths:
+  models_dir: "models/checkpoints"
+  data_processed_dir: "data/processed"
+  data_annotations_dir: "data/annotations"
+  logs_dir: "logs"
+  results_dir: "experiments/results"
+
+# Preprocessing
+preprocessing:
+  normalization: "imagenet"  # ImageNet mean/std
+  augmentation_train: true
+  augmentation_val: false
